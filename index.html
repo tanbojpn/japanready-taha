@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#181B39">
+<title>Japan-Ready Japanese — coaching for people moving to Japan</title>
+<meta name="description" content="Moving to Japan in the next 12 months? A plan counted back from your landing date, weekly 1:1 sessions and daily check-ins. Free 30-minute diagnosis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@600;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   Tokens
+   - Color: 勝色 / 金 / 茜. Every text pair ≥ 4.5:1, every
+     meaningful border ≥ 3:1 (WCAG 2.2, DADS).
+   - Type in rem so it follows the reader's font-size setting
+     (HIG Dynamic Type). Body line-height ≥ 1.5 (DADS).
+   - Targets ≥ 48px (Material 3; stricter than HIG 44pt).
+   - Motion: M3 emphasized easing, 200–400ms, off under
+     prefers-reduced-motion.
+   ========================================================= */
+:root{
+  --kachi:#181B39; --kachi-2:#262A52; --kachi-soft:#55576C;
+  --gold:#E6B422; --akane:#B7282E; --akane-press:#9C2126;
+  --paper:#EEF0F4; --white:#FFFFFF;
+  --on-dark:#FFFFFF; --on-dark-2:#C9CBE0; --on-dark-3:#9DA0C4;
+  --line-light:#767A96; --line-dark:#7A80C2; --hair-light:#D6D9E3;
+  --serif:"Shippori Mincho B1",serif; --sans:Figtree,system-ui,-apple-system,sans-serif;
+  --r-s:12px; --r-l:24px; --r-full:999px;
+  --target:48px;
+  --ease:cubic-bezier(.2,0,0,1); --ease-in:cubic-bezier(.3,0,.8,.15);
+  --d-s:200ms; --d-m:300ms; --d-l:400ms;
+  --gutter:max(20px, env(safe-area-inset-left));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-size:1.0625rem;line-height:1.65;color:var(--kachi);background:var(--paper)}
+a{color:inherit}
+.wrap{width:min(1080px,100% - 2*var(--gutter));margin-inline:auto}
+img,svg{display:block}
+
+/* Focus: two-tone ring stays visible on both light and dark surfaces (DADS focus rule) */
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;box-shadow:0 0 0 6px var(--kachi);border-radius:6px}
+
+/* State layer (M3): hover 8%, focus 10%, pressed 12% of the content color */
+.sl{position:relative;isolation:isolate;overflow:hidden}
+.sl::after{content:"";position:absolute;inset:0;background:currentColor;opacity:0;transition:opacity var(--d-s) var(--ease);pointer-events:none;z-index:-1}
+@media (hover:hover){.sl:hover::after{opacity:.08}}
+.sl:focus-visible::after{opacity:.10}
+.sl:active::after{opacity:.12}
+
+/* Primary action. One color, one job: 茜 is only ever "book". */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 28px;border-radius:var(--r-full);
+  background:var(--akane);color:#fff;font:700 1.0625rem/1.2 var(--sans);text-decoration:none;border:0;cursor:pointer;
+  transition:transform var(--d-s) var(--ease),background var(--d-s) var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn .sub{display:block;font-weight:500;font-size:.8125rem;opacity:.9}
+.btn-stack{display:flex;flex-direction:column;align-items:center;line-height:1.25}
+.reassure{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:12px;font-size:.875rem}
+.reassure span{display:inline-flex;align-items:center;gap:6px}
+.reassure svg{width:16px;height:16px;flex:none}
+
+/* ---------------- Hero ---------------- */
+.hero{background:var(--kachi);color:var(--on-dark);position:relative;overflow:hidden;padding:max(20px,env(safe-area-inset-top)) 0 64px}
+.hero::before{content:"";position:absolute;inset:auto -20% -45% -20%;height:75%;background:radial-gradient(110% 60% at 50% 100%,#2c3166 0%,transparent 70%);pointer-events:none}
+nav{display:flex;justify-content:space-between;align-items:center;min-height:var(--target);margin-bottom:40px;position:relative}
+.logo{display:inline-flex;align-items:center;gap:8px;min-height:var(--target);font-weight:800;text-decoration:none}
+.logo b{font-family:var(--serif);color:var(--gold);font-size:1.25rem}
+nav .link{display:inline-flex;align-items:center;min-height:var(--target);padding:0 14px;border-radius:var(--r-full);color:var(--on-dark-2);text-decoration:none;font-weight:500}
+.hero-grid{display:grid;gap:36px;position:relative}
+h1{font-size:clamp(2.125rem,5.6vw,3.75rem);line-height:1.08;font-weight:800;letter-spacing:-.02em;max-width:14ch;text-wrap:balance}
+.lead{font-size:1.1875rem;color:var(--on-dark-2);margin-top:18px;max-width:46ch}
+
+/* Planner: one decision, immediate payoff (Hick's law + goal gradient) */
+.planner{background:var(--kachi-2);border:1px solid var(--line-dark);border-radius:var(--r-l);padding:24px}
+.steps{list-style:none;display:flex;gap:6px;margin-bottom:20px}
+.steps li{flex:1;font-size:.8125rem;color:var(--on-dark-3);padding-top:10px;border-top:4px solid #3d4380;transition:border-color var(--d-m) var(--ease),color var(--d-m) var(--ease)}
+.steps li.done{border-color:var(--gold);color:var(--on-dark)}
+.planner label{display:block;font-weight:700;font-size:1.125rem;margin-bottom:10px}
+.select{position:relative}
+.select select{width:100%;min-height:56px;font:500 1.125rem var(--sans);padding:0 48px 0 16px;border-radius:var(--r-s);border:2px solid var(--line-dark);background:var(--kachi);color:#fff;appearance:none;cursor:pointer}
+.select svg{position:absolute;right:16px;top:50%;width:20px;height:20px;transform:translateY(-50%);color:var(--gold);pointer-events:none}
+.weeks{display:flex;align-items:baseline;gap:12px;margin:22px 0 6px}
+.weeks b{font-size:clamp(3.5rem,9vw,4.5rem);line-height:1;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+.weeks span{color:var(--on-dark-2)}
+.track{list-style:none;margin:16px 0 18px;position:relative}
+.track::before{content:"";position:absolute;left:9px;top:10px;bottom:14px;width:2px;background:var(--line-dark)}
+.track li{position:relative;padding:0 0 14px 36px}
+.track li::before{content:"";position:absolute;left:2px;top:7px;width:16px;height:16px;border-radius:50%;background:var(--kachi-2);border:2px solid var(--gold)}
+.track li.land::before{background:var(--gold)}
+.track .wk{font-size:.8125rem;color:var(--on-dark-3);font-weight:700}
+.track .say{display:block;font-family:var(--serif);font-size:1.25rem;line-height:1.4}
+.track .en{font-size:.9375rem;color:var(--on-dark-2)}
+.track.enter li{animation:enter var(--d-l) var(--ease) both}
+@keyframes enter{from{opacity:0;transform:translateY(6px)}}
+.advice{font-size:.9375rem;color:var(--on-dark-2);margin-bottom:16px;padding:12px 14px;border-radius:var(--r-s);border:1px solid var(--line-dark)}
+.advice b{color:var(--on-dark)}
+.planner .btn{width:100%}
+.planner .reassure{color:var(--on-dark-2)}
+
+/* ---------------- Sections ---------------- */
+section{padding:80px 0}
+h2{font-size:clamp(1.75rem,4vw,2.5rem);line-height:1.15;font-weight:800;letter-spacing:-.015em;max-width:22ch;text-wrap:balance}
+.intro{color:var(--kachi-soft);margin-top:12px;max-width:56ch}
+
+/* Scenes: tabs follow the WAI-ARIA tabs pattern; on phones they become a thumb-height scroller */
+.scenes{margin-top:32px;display:grid;gap:18px}
+.tabs{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 8px;margin-inline:-2px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;scroll-snap-align:start;min-height:var(--target);padding:0 18px;border-radius:var(--r-full);border:1.5px solid var(--line-light);background:transparent;color:var(--kachi);font:700 .9375rem var(--sans);cursor:pointer;
+  transition:background var(--d-s) var(--ease),color var(--d-s) var(--ease)}
+.tabs button[aria-selected="true"]{background:var(--kachi);border-color:var(--kachi);color:#fff}
+.stage{background:var(--white);border:1px solid var(--hair-light);border-radius:var(--r-l);padding:clamp(22px,5vw,44px);display:grid;gap:16px;min-height:320px;align-content:center}
+.ctx{color:var(--kachi-soft)}
+.ctx b{color:var(--kachi)}
+.phrase{font-family:var(--serif);font-weight:800;font-size:clamp(2.5rem,8vw,5.25rem);line-height:1.15;letter-spacing:.02em}
+.phrase.swap{animation:enter var(--d-m) var(--ease)}
+.romaji{font-size:1.25rem;font-weight:700}
+.means{color:var(--kachi-soft)}
+.listen{justify-self:start;display:inline-flex;align-items:center;gap:10px;min-height:var(--target);padding:0 20px;border-radius:var(--r-full);border:1.5px solid var(--kachi);background:transparent;color:var(--kachi);font:700 1rem var(--sans);cursor:pointer}
+.listen svg{width:20px;height:20px}
+.listen[aria-pressed="true"] .bars i{animation:bar .8s var(--ease) infinite alternate}
+.bars{display:inline-flex;gap:2px;align-items:flex-end;height:14px}
+.bars i{width:3px;height:40%;background:currentColor;border-radius:2px}
+.bars i:nth-child(2){animation-delay:.15s!important;height:80%}.bars i:nth-child(3){animation-delay:.3s!important;height:60%}
+@keyframes bar{to{height:100%}}
+.why{border-left:3px solid var(--kachi);padding-left:14px;max-width:60ch;color:var(--kachi-soft)}
+
+/* How: a true sequence, so numbers are information */
+.how{background:var(--white)}
+.path{list-style:none;margin-top:36px;display:grid;gap:26px;counter-reset:s}
+.path li{counter-increment:s;position:relative;padding-left:60px}
+.path li::before{content:counter(s);position:absolute;left:0;top:-4px;width:44px;height:44px;border-radius:50%;background:var(--kachi);color:var(--gold);font-weight:800;display:grid;place-items:center}
+.path h3{font-size:1.1875rem;margin-bottom:4px}
+.path p{color:var(--kachi-soft);max-width:44ch}
+
+/* Fit */
+.fit-grid{display:grid;gap:28px;margin-top:32px}
+.fit-grid h3{font-size:1.125rem;margin-bottom:8px}
+.fit-grid ul{list-style:none}
+.fit-grid li{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--hair-light)}
+.fit-grid li svg{width:22px;height:22px;flex:none;margin-top:2px}
+.fit-grid .no li{color:var(--kachi-soft)}
+
+/* Pricing: the plan that matches the reader's move date is highlighted for them (fewer choices to weigh) */
+.pricing{background:var(--kachi);color:var(--on-dark)}
+.pricing .intro{color:var(--on-dark-2)}
+.plans{display:grid;gap:16px;margin-top:36px}
+.plan{border:1px solid var(--line-dark);border-radius:var(--r-l);padding:24px;display:flex;flex-direction:column;gap:10px;transition:border-color var(--d-m) var(--ease),background var(--d-m) var(--ease)}
+.plan h3{font-size:1.25rem;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.chip{font-size:.8125rem;font-weight:700;padding:4px 10px;border-radius:var(--r-full);background:var(--gold);color:var(--kachi);display:none}
+.plan.rec{border:2px solid var(--gold);background:var(--kachi-2)}
+.plan.rec .chip{display:inline-block}
+.plan .price{font-size:2.875rem;font-weight:800;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.plan .price small{font-size:1rem;font-weight:500;color:var(--on-dark-2)}
+.plan .desc{color:var(--on-dark-2);font-size:.9375rem}
+.plan ul{list-style:none;font-size:.9375rem;color:#e3e4f0}
+.plan li{padding:8px 0;border-top:1px solid #3d4380}
+.seats{display:flex;gap:6px;align-items:center;font-size:.875rem;color:var(--gold);font-weight:700}
+.seats i{width:14px;height:14px;border-radius:50%;border:2px solid var(--gold)}
+.seats i.taken{background:var(--gold)}
+.pricing .note{margin-top:20px;color:var(--on-dark-2);font-size:.9375rem;max-width:60ch}
+
+/* About */
+.about{display:grid;gap:24px;align-items:start}
+.mark{width:112px;height:112px;border-radius:50%;background:var(--kachi);color:var(--gold);display:grid;place-items:center;font-family:var(--serif);font-size:3.25rem;font-weight:800}
+.about p{max-width:60ch;color:var(--kachi-soft);margin-top:12px}
+
+/* FAQ: native disclosure, full-row target */
+.faq{background:var(--white)}
+.faq details{border-top:1px solid var(--hair-light)}
+.faq details:last-child{border-bottom:1px solid var(--hair-light)}
+.faq summary{cursor:pointer;list-style:none;min-height:64px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:700;font-size:1.0625rem;padding:8px 4px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary svg{width:22px;height:22px;flex:none;transition:transform var(--d-m) var(--ease)}
+.faq details[open] summary svg{transform:rotate(45deg)}
+.faq details p{padding:0 4px 18px;color:var(--kachi-soft);max-width:62ch}
+
+.closing{background:var(--kachi);color:var(--on-dark);text-align:center}
+.closing h2{margin-inline:auto}
+.closing .intro{color:var(--on-dark-2);margin:14px auto 28px}
+.closing .reassure{color:var(--on-dark-2)}
+footer{background:var(--kachi);color:var(--on-dark-3);font-size:.875rem;text-align:center;padding:0 0 calc(120px + env(safe-area-inset-bottom))}
+footer a{display:inline-flex;min-height:var(--target);align-items:center;color:var(--on-dark-2)}
+
+/* Bottom action bar: the CTA lives in the thumb zone on phones (Fitts's law) */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(24,27,57,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:1px solid var(--line-dark);padding:12px var(--gutter) calc(12px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:center;
+  transform:translateY(110%);transition:transform var(--d-m) var(--ease-in)}
+.bar.show{transform:none;transition-timing-function:var(--ease)}
+.bar .summary{color:var(--on-dark-2);font-size:.8125rem;line-height:1.3;flex:1;min-width:0}
+.bar .summary b{display:block;color:#fff;font-size:1rem}
+.bar .btn{min-height:52px;padding:0 22px;flex:none}
+
+@media (min-width:860px){
+  .hero{padding-bottom:96px}
+  .hero-grid{grid-template-columns:1.1fr .9fr;align-items:center;gap:56px}
+  .scenes{grid-template-columns:220px 1fr;align-items:start}
+  .tabs{flex-direction:column;overflow:visible}
+  .tabs button{border-radius:var(--r-s);text-align:left}
+  .path{grid-template-columns:repeat(4,1fr);gap:24px}
+  .path li{padding-left:0;padding-top:60px}
+  .path li::after{content:"";position:absolute;top:21px;left:52px;right:-12px;height:2px;background:var(--hair-light)}
+  .path li:last-child::after{display:none}
+  .fit-grid{grid-template-columns:1fr 1fr;gap:48px}
+  .plans{grid-template-columns:repeat(3,1fr)}
+  .about{grid-template-columns:112px 1fr;gap:40px}
+  .bar{left:auto;right:24px;bottom:24px;border-radius:var(--r-full);border:1px solid var(--line-dark);padding:8px 8px 8px 22px;max-width:520px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+@media (prefers-contrast:more){
+  :root{--on-dark-2:#FFFFFF;--on-dark-3:#E3E4F0;--kachi-soft:#2E3048;--hair-light:#767A96}
+  .plan,.planner,.advice{border-width:2px}
+}
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="logo" href="#"><b aria-hidden="true">日</b>Japan-Ready Japanese</a>
+      <a class="link sl" href="#pricing">Pricing</a>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <h1>Your Japanese plan, counted back from the day you land.</h1>
+        <p class="lead">Most people quit Japanese in the first month because nobody checks in. I coach people moving to Japan: a plan built around your move date, a weekly 1:1 session, and a daily check-in so you don't fall off.</p>
+      </div>
+
+      <div class="planner">
+        <ol class="steps" aria-label="Your progress">
+          <li class="done" id="s1">Pick your month</li>
+          <li id="s2">See your plan</li>
+          <li id="s3">Book a free call</li>
+        </ol>
+        <label for="move">When do you move to Japan?</label>
+        <div class="select">
+          <select id="move" aria-describedby="wkline"></select>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="weeks" id="wkline" aria-live="polite"><b id="wk">--</b><span id="wklabel">weeks to get ready</span></div>
+        <ol class="track" id="track" aria-label="What you'll be able to say"></ol>
+        <p class="advice" id="advice" aria-live="polite"></p>
+        <a class="btn sl" data-book href="#">
+          <span class="btn-stack"><span id="ctaMain">Book my free diagnosis</span><span class="sub" id="ctaSub"></span></span>
+        </a>
+        <div class="reassure">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Free</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>30 minutes</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>No card needed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="scenes">
+  <div class="wrap">
+    <h2>Learn the Japanese you'll need in your first week.</h2>
+    <p class="intro">Real scenes you will walk into after landing. Pick one and press play.</p>
+    <div class="scenes">
+      <div class="tabs" role="tablist" aria-label="Scenes" id="tabs"></div>
+      <div class="stage" role="tabpanel" id="stage" aria-labelledby="tab0">
+        <p class="ctx" id="ctx"></p>
+        <p class="phrase" id="phrase" lang="ja"></p>
+        <div><p class="romaji" id="romaji"></p><p class="means" id="means"></p></div>
+        <button class="listen sl" id="listen" type="button" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
+          <span>Hear it</span><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+        <p class="why" id="why"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <h2>How the coaching works</h2>
+    <ol class="path">
+      <li><h3>Free diagnosis</h3><p>30 minutes. Why you stopped before, when you land, and what you need to say on day one.</p></li>
+      <li><h3>Your move-date plan</h3><p>Week by week, counted back from your landing day. Small enough for a tired weekday.</p></li>
+      <li><h3>Weekly 1:1 session</h3><p>We practice real scenes: the register, your first day at work, meeting neighbors.</p></li>
+      <li><h3>Daily check-in</h3><p>Send one line, a voice note, or a photo of your notes. I reply on weekdays within 24 hours.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Is this for you?</h2>
+    <div class="fit-grid">
+      <div>
+        <h3>It is if</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>you move to Japan within 12 months, for work, study or family</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>you started with apps or books and keep stopping</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>you want Japanese for daily life, not for an exam</li>
+        </ul>
+      </div>
+      <div class="no">
+        <h3>It isn't if</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>you need JLPT exam prep</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>you need visa or immigration advice. I teach language and daily life only</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <h2>Monthly coaching. Pay only after the diagnosis.</h2>
+    <p class="intro">If we're a good fit after the free call, I send you a secure Stripe link. Cancel anytime.</p>
+    <div class="plans">
+      <div class="plan" id="p-founding">
+        <h3>Founding member <span class="chip">For you</span></h3>
+        <div class="seats" id="seats" aria-label="Founding spots left"></div>
+        <p class="price">$99<small> / month</small></p>
+        <p class="desc">Everything in Standard, at half price, in return for honest feedback while I build this.</p>
+      </div>
+      <div class="plan" id="p-standard">
+        <h3>Standard <span class="chip">Fits your date</span></h3>
+        <p class="price">$199<small> / month</small></p>
+        <ul><li>4 × 45-min sessions</li><li>Daily weekday check-ins</li><li>Your move-date plan</li><li>$540 if you pay 3 months up front</li></ul>
+      </div>
+      <div class="plan" id="p-intensive">
+        <h3>Intensive <span class="chip">Fits your date</span></h3>
+        <p class="price">$349<small> / month</small></p>
+        <ul><li>8 × 45-min sessions</li><li>Daily voice-note feedback</li><li>For people landing in under 3 months</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap about">
+    <div class="mark" aria-hidden="true">た</div>
+    <div>
+      <h2>Hi, I'm Taha.</h2>
+      <p>I'm a native Japanese speaker living in Tokyo. I grew up between Pakistani and Japanese culture, and I'm a Japanese Muslim, so I know what it's like to live here while keeping your own way of life.</p>
+      <p>I teach the phrases and the unwritten rules nobody explains: how to say no without saying no, how to check a label for pork or alcohol, and what to say to your neighbors on moving day.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap">
+    <h2>Questions</h2>
+    <div style="margin-top:24px">
+      <details><summary class="sl">I'm a total beginner. Is that OK?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Yes. Your plan starts where you are and counts back from your move date.</p></details>
+      <details><summary class="sl">What time are the sessions?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Evenings and weekends in Japan time, which is morning to afternoon in Europe and the Americas. The booking page shows your local time.</p></details>
+      <details><summary class="sl">I'm Muslim. Do you cover halal food and Ramadan?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>Yes. Reading labels, asking about pork and alcohol, and explaining fasting to coworkers. Pork and alcohol are everyday food here, so we prepare you to check, not to expect.</p></details>
+      <details><summary class="sl">Can you help with my visa?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>No. I only teach language and daily life. Please check visa questions with official sources.</p></details>
+      <details><summary class="sl">What happens on the free call?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p>You tell me your move date and why you stopped before. I show you what your first four weeks would look like. If it fits, I send a payment link. If not, you keep the plan.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="closing" id="closing">
+  <div class="wrap">
+    <h2>Your move date is coming either way.</h2>
+    <p class="intro">Make sure your Japanese is ready for it.</p>
+    <a class="btn sl" data-book href="#">
+      <span class="btn-stack"><span>Book my free diagnosis</span><span class="sub" data-ctasub></span></span>
+    </a>
+    <div class="reassure"><span>Free</span><span>30 minutes</span><span>No card needed</span></div>
+  </div>
+</section>
+</main>
+
+<footer><p>© 2026 Taha Khawaja. <a data-ig href="#">Instagram @taha_with_japanese</a></p></footer>
+
+<div class="bar" id="bar" aria-hidden="true">
+  <div class="summary"><b id="barTitle">Free 30-min diagnosis</b><span id="barSub">No card needed</span></div>
+  <a class="btn sl" data-book href="#" tabindex="-1">Book</a>
+</div>
+
+<script>
+/* ▼ ここだけ書き換える */
+const CONFIG = {
+  BOOKING_URL: "https://cal.com/taha.khawaja/diagnosis",
+  MOVE_FIELD_ID: "When-are-you-moving-to-Japan",  // Cal.com の質問IDと同じにすると、選んだ月が予約フォームに自動で入る
+  INSTAGRAM_URL: "https://www.instagram.com/taha_with_japanese/",
+  FOUNDING_SPOTS_TOTAL: 3,
+  FOUNDING_SPOTS_TAKEN: 0
+};
+
+const $ = id => document.getElementById(id);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const buzz = () => { if (navigator.vibrate && !reduce) navigator.vibrate(8); };
+
+document.querySelectorAll("[data-ig]").forEach(a => { a.href = CONFIG.INSTAGRAM_URL; a.target = "_blank"; a.rel = "noopener"; });
+
+/* ---------- planner ---------- */
+const MILESTONES = [
+  { at:.15, say:"大丈夫です", en:"Say no thanks at the konbini register" },
+  { at:.40, say:"お疲れ様です", en:"Greet coworkers on your first day" },
+  { at:.65, say:"よろしくお願いします", en:"Introduce yourself to your neighbors" },
+  { at:.85, say:"燃えるゴミは何曜日ですか？", en:"Ask about trash day and city rules" },
+  { at:1, say:"Landing day", en:"You arrive ready, not starting from zero" }
+];
+const sel = $("move"), now = new Date();
+for (let i = 1; i <= 12; i++) {
+  const d = new Date(now.getFullYear(), now.getMonth() + i, 15);
+  const o = document.createElement("option");
+  o.value = d.toISOString();
+  o.textContent = d.toLocaleDateString("en-US", { month:"long", year:"numeric" });
+  if (i === 6) o.selected = true;
+  sel.appendChild(o);
+}
+function countTo(el, to) {
+  if (reduce) { el.textContent = to; return; }
+  const from = parseInt(el.textContent) || 0, t0 = performance.now(), dur = 400;
+  (function f(t){ const p = Math.min(1,(t-t0)/dur); el.textContent = Math.round(from+(to-from)*(1-Math.pow(1-p,3))); if (p<1) requestAnimationFrame(f); })(t0);
+}
+let touched = false;
+function render() {
+  const monthLabel = sel.options[sel.selectedIndex].textContent;
+  const weeks = Math.max(1, Math.round((new Date(sel.value) - now) / (7*864e5)));
+  countTo($("wk"), weeks);
+  $("wklabel").textContent = weeks === 1 ? "week to get ready" : "weeks to get ready";
+  const track = $("track"); track.classList.remove("enter"); track.innerHTML = "";
+  MILESTONES.forEach((m, i) => {
+    const w = Math.max(1, Math.round(weeks*m.at)), li = document.createElement("li");
+    if (m.at === 1) li.className = "land";
+    li.style.animationDelay = (i*70)+"ms";
+    li.innerHTML = `<span class="wk">${m.at===1 ? "Week "+weeks : "By week "+w}</span><span class="say"${m.at===1?"":' lang="ja"'}>${m.say}</span><span class="en">${m.en}</span>`;
+    track.appendChild(li);
+  });
+  void track.offsetWidth; track.classList.add("enter");
+
+  const intensive = weeks < 13;
+  $("advice").innerHTML = intensive
+    ? "<b>Under 3 months.</b> The Intensive plan fits best. Let's talk this week."
+    : "<b>Good timing.</b> Standard coaching keeps you moving every week until you land.";
+  $("ctaSub").textContent = `For your ${monthLabel} move`;
+  document.querySelectorAll("[data-ctasub]").forEach(e => e.textContent = `For your ${monthLabel} move`);
+  $("barTitle").textContent = `${monthLabel} move, ${weeks} weeks`;
+  $("barSub").textContent = "Free 30-min diagnosis";
+
+  /* carry the answer into Cal.com (fewer fields to fill = less drop-off) */
+  const url = new URL(CONFIG.BOOKING_URL);
+  url.searchParams.set(CONFIG.MOVE_FIELD_ID, monthLabel);
+  document.querySelectorAll("[data-book]").forEach(a => { a.href = url.toString(); a.target = "_blank"; a.rel = "noopener"; });
+
+  /* recommend exactly one plan */
+  const spotsLeft = CONFIG.FOUNDING_SPOTS_TOTAL - CONFIG.FOUNDING_SPOTS_TAKEN;
+  ["p-founding","p-standard","p-intensive"].forEach(id => $(id).classList.remove("rec"));
+  $(intensive ? "p-intensive" : (spotsLeft > 0 ? "p-founding" : "p-standard")).classList.add("rec");
+
+  if (touched) { $("s2").classList.add("done"); }
+}
+sel.addEventListener("change", () => { touched = true; buzz(); render(); });
+render();
+document.querySelectorAll("[data-book]").forEach(a => a.addEventListener("click", () => $("s3").classList.add("done")));
+
+/* founding seats: real count only */
+(() => {
+  const s = $("seats"), left = CONFIG.FOUNDING_SPOTS_TOTAL - CONFIG.FOUNDING_SPOTS_TAKEN;
+  for (let i = 0; i < CONFIG.FOUNDING_SPOTS_TOTAL; i++) { const d = document.createElement("i"); if (i < CONFIG.FOUNDING_SPOTS_TAKEN) d.className = "taken"; s.appendChild(d); }
+  s.appendChild(Object.assign(document.createElement("span"), { textContent: left > 0 ? `${left} of ${CONFIG.FOUNDING_SPOTS_TOTAL} spots left` : "All founding spots taken" }));
+})();
+
+/* ---------- scenes (WAI-ARIA tabs) ---------- */
+const SCENES = [
+  { tab:"Konbini", ctx:"<b>At the register.</b> The clerk asks: 袋はご利用ですか？ (Do you need a bag?)", jp:"大丈夫です", ro:"Daijōbu desu", en:"No thanks (politely)", why:"Textbooks teach いいえ, but it sounds blunt here. Saying you're fine without it is the polite no." },
+  { tab:"Office", ctx:"<b>First day at work.</b> In the hallway, in meetings, when people leave.", jp:"お疲れ様です", ro:"Otsukaresama desu", en:"Hi, thanks, good work", why:"It recognizes the effort you're both putting in. Use it with coworkers, not customers." },
+  { tab:"Neighbors", ctx:"<b>Moving-in day.</b> You knock on the door next to yours.", jp:"よろしくお願いします", ro:"Yoroshiku onegai shimasu", en:"I hope we get along well", why:"There's no clean English version. It means you're counting on a good relationship." },
+  { tab:"Saying no", ctx:"<b>A coworker invites you out</b> on a night you can't go.", jp:"ちょっと…", ro:"Chotto…", en:"A soft, polite no", why:"Say it and stop. The listener fills in the rest. No reason needed." },
+  { tab:"Halal check", ctx:"<b>At a restaurant.</b> You want to know what's in the dish.", jp:"豚肉は入っていますか？", ro:"Butaniku wa haitte imasu ka?", en:"Does this contain pork?", why:"Pork is everyday food in Japan, from ramen broth to gyoza. Asking is normal, and staff will check for you." }
+];
+const tabs = $("tabs"); let current = 0;
+SCENES.forEach((s, i) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "sl"; b.setAttribute("role","tab"); b.id = "tab"+i; b.setAttribute("aria-controls","stage"); b.textContent = s.tab;
+  b.addEventListener("click", () => show(i));
+  b.addEventListener("keydown", e => {
+    const n = SCENES.length;
+    const go = { ArrowRight:(i+1)%n, ArrowDown:(i+1)%n, ArrowLeft:(i-1+n)%n, ArrowUp:(i-1+n)%n, Home:0, End:n-1 }[e.key];
+    if (go !== undefined) { e.preventDefault(); show(go, true); }
+  });
+  tabs.appendChild(b);
+});
+function show(i, focus, user = true) {
+  current = i; const s = SCENES[i];
+  [...tabs.children].forEach((b, j) => { b.setAttribute("aria-selected", j===i); b.tabIndex = j===i ? 0 : -1; });
+  const btn = tabs.children[i];
+  if (focus) btn.focus();
+  if (user) tabs.scrollTo({ left: btn.offsetLeft - tabs.offsetLeft - 8, behavior: reduce ? "auto" : "smooth" });
+  $("stage").setAttribute("aria-labelledby", btn.id);
+  $("ctx").innerHTML = s.ctx; $("romaji").textContent = s.ro; $("means").textContent = s.en; $("why").textContent = s.why;
+  const p = $("phrase"); p.textContent = s.jp; p.classList.remove("swap"); void p.offsetWidth; p.classList.add("swap");
+  stopSpeech();
+}
+const listen = $("listen");
+function stopSpeech(){ if ("speechSynthesis" in window) speechSynthesis.cancel(); listen.setAttribute("aria-pressed","false"); }
+if (!("speechSynthesis" in window)) listen.hidden = true;
+listen.addEventListener("click", () => {
+  if (listen.getAttribute("aria-pressed") === "true") { stopSpeech(); return; }
+  speechSynthesis.cancel(); buzz();
+  const u = new SpeechSynthesisUtterance(SCENES[current].jp);
+  u.lang = "ja-JP"; u.rate = .85;
+  const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.startsWith("ja")); if (v) u.voice = v;
+  u.onend = u.onerror = () => listen.setAttribute("aria-pressed","false");
+  listen.setAttribute("aria-pressed","true");
+  speechSynthesis.speak(u);
+});
+show(0, false, false);
+
+/* ---------- bottom bar: only when no other booking button is on screen ---------- */
+const bar = $("bar"); let heroOut = false, closingIn = false;
+const upd = () => { const on = heroOut && !closingIn; bar.classList.toggle("show", on); bar.setAttribute("aria-hidden", !on); bar.querySelector("a").tabIndex = on ? 0 : -1; };
+new IntersectionObserver(([e]) => { heroOut = !e.isIntersecting; upd(); }, { threshold:0 }).observe(matchMedia("(min-width:860px)").matches ? document.querySelector(".hero") : document.querySelector(".planner .btn"));
+new IntersectionObserver(([e]) => { closingIn = e.isIntersecting; upd(); }).observe($("closing"));
+
+</script>
+</body>
+</html>
